@@ -13,6 +13,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 public class VDatosM extends JFrame {
@@ -23,12 +24,8 @@ public class VDatosM extends JFrame {
 	private JTextField TxtEspecie;
 	private JTextField txtRaza;
 	private JTextField textField;
-	private DatosMascota[] mascotas = new DatosMascota[10];
-	private int contador = 0;
+	private ArrayList<DatosMascota> mascotas = new ArrayList<>();
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -42,9 +39,6 @@ public class VDatosM extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public VDatosM() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 511, 334);
@@ -101,47 +95,46 @@ public class VDatosM extends JFrame {
 		JTextArea textArea = new JTextArea();
 		scrollPane.setViewportView(textArea);
 
-		JButton btnNewButton = new JButton("Agregar");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnAgregar = new JButton("Agregar");
+		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (contador < mascotas.length) {
-					try {
-						String nombre = txtD_Mascota.getText();
-						String especie = TxtEspecie.getText();
-						String raza = txtRaza.getText();
-						int edad = Integer.parseInt(textField.getText());
+				try {
+					String nombre = txtD_Mascota.getText();
+					String especie = TxtEspecie.getText();
+					String raza = txtRaza.getText();
+					int edad = Integer.parseInt(textField.getText());
 
-						mascotas[contador] = new DatosMascota(nombre, especie, raza, edad);
-						contador++;
+					mascotas.add(new DatosMascota(nombre, especie, raza, edad));
 
-						JOptionPane.showMessageDialog(null, "Mascota agregada correctamente.");
+					JOptionPane.showMessageDialog(null, "Mascota agregada correctamente.");
 
+					txtD_Mascota.setText("");
+					TxtEspecie.setText("");
+					txtRaza.setText("");
+					textField.setText("");
 
-					} catch (NumberFormatException ex) {
-						JOptionPane.showMessageDialog(null, "Edad inválida. Ingrese un número.");
-					}
-				} else {
-					JOptionPane.showMessageDialog(null, "Límite de mascotas alcanzado.");
+				} catch (NumberFormatException ex) {
+					JOptionPane.showMessageDialog(null, "Edad inválida. Ingrese un número.");
 				}
 			}
 		});
-		btnNewButton.setBounds(378, 28, 89, 23);
-		contentPane.add(btnNewButton);
+		btnAgregar.setBounds(378, 28, 89, 23);
+		contentPane.add(btnAgregar);
 
-		JButton btnNewButton_1 = new JButton("Mostrar");
-		btnNewButton_1.addActionListener(new ActionListener() {
+		JButton btnMostrar = new JButton("Mostrar");
+		btnMostrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				textArea.setText("");
-				for (int i = 0; i < contador; i++) {
-					textArea.append(mascotas[i].getInfo() + "\n");
+				for (DatosMascota mascota : mascotas) {
+					textArea.append(mascota.getInfo() + "\n");
 				}
 			}
 		});
-		btnNewButton_1.setBounds(378, 62, 89, 23);
-		contentPane.add(btnNewButton_1);
-		
-		JButton btnNewButton_2 = new JButton("Limpiar");
-		btnNewButton_2.addActionListener(new ActionListener() {
+		btnMostrar.setBounds(378, 62, 89, 23);
+		contentPane.add(btnMostrar);
+
+		JButton btnLimpiar = new JButton("Limpiar");
+		btnLimpiar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				txtD_Mascota.setText("");
 				TxtEspecie.setText("");
@@ -149,10 +142,8 @@ public class VDatosM extends JFrame {
 				textField.setText("");
 				textArea.setText("");
 			}
-			
 		});
-		btnNewButton_2.setBounds(378, 96, 89, 23);
-		contentPane.add(btnNewButton_2);
+		btnLimpiar.setBounds(378, 96, 89, 23);
+		contentPane.add(btnLimpiar);
 	}
 }
-
