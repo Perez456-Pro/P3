@@ -116,10 +116,6 @@ public class VDatosM extends JFrame {
 
 						JOptionPane.showMessageDialog(null, "Mascota agregada correctamente.");
 
-						txtD_Mascota.setText("");
-						TxtEspecie.setText("");
-						txtRaza.setText("");
-						textField.setText("");
 
 					} catch (NumberFormatException ex) {
 						JOptionPane.showMessageDialog(null, "Edad inválida. Ingrese un número.");
@@ -141,8 +137,22 @@ public class VDatosM extends JFrame {
 				}
 			}
 		});
-		btnNewButton_1.setBounds(378, 96, 89, 23);
+		btnNewButton_1.setBounds(378, 62, 89, 23);
 		contentPane.add(btnNewButton_1);
+		
+		JButton btnNewButton_2 = new JButton("Limpiar");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtD_Mascota.setText("");
+				TxtEspecie.setText("");
+				txtRaza.setText("");
+				textField.setText("");
+				textArea.setText("");
+			}
+			
+		});
+		btnNewButton_2.setBounds(378, 96, 89, 23);
+		contentPane.add(btnNewButton_2);
 	}
 }
 
